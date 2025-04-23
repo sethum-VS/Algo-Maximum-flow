@@ -27,7 +27,8 @@ public class FlowNetwork {
         // Initialize adjacency list
         this.adjacenciesList = new ArrayList<>(numberOfVertices);
         for (int i = 0; i < numberOfVertices; i++) {
-            this.adjacenciesList.add(new ArrayList<>());
+            List<Edge> edgeList = new ArrayList<>();
+            adjacenciesList.add(edgeList);
         }
         
         // Initialize vertices map (optional)
@@ -60,6 +61,7 @@ public class FlowNetwork {
         
         // Add the edge to the outgoing adjacency list of the source vertex
         adjacenciesList.get(from.getId()).add(e);
+        adjacenciesList.get(to.getId()).add(e); // Add the edge to the incoming adjacency list of the target vertex
         
         // Store vertices in the map for getVertexById
         if (!verticesMap.containsKey(from.getId())) {

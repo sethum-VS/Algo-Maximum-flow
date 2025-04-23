@@ -7,7 +7,7 @@ public class Edge {
     // Attributes
     private Vertex fromVertex;
     private Vertex targetVertex;
-    private double capacity;
+    private final double capacity;
     private double flow;
     
     /**
@@ -81,9 +81,9 @@ public class Edge {
      * @throws IllegalArgumentException if v is not an endpoint of this edge
      */
     public Vertex getOtherVertex(Vertex v) {
-        if (v.equals(fromVertex)) {
+        if (v == fromVertex) {
             return targetVertex;
-        } else if (v.equals(targetVertex)) {
+        } else if (v == targetVertex) {
             return fromVertex;
         } else {
             throw new IllegalArgumentException("Vertex is not incident to this edge");
@@ -97,10 +97,10 @@ public class Edge {
      * @throws IllegalArgumentException if v is not an endpoint of this edge
      */
     public double getResidualCapacity(Vertex v) {
-        if (v.equals(fromVertex)) {
+        if (v == fromVertex) {
             // Backward edge - can reduce flow
             return flow;
-        } else if (v.equals(targetVertex)) {
+        } else if (v == targetVertex) {
             // Forward edge - can add up to capacity - flow
             return capacity - flow;
         } else {
@@ -115,10 +115,10 @@ public class Edge {
      * @throws IllegalArgumentException if v is not an endpoint of this edge
      */
     public void addResidualFlowTo(Vertex v, double deltaFlow) {
-        if (v.equals(fromVertex)) {
+        if (v == fromVertex) {
             // Backward edge - decrease flow
             flow -= deltaFlow;
-        } else if (v.equals(targetVertex)) {
+        } else if (v == targetVertex) {
             // Forward edge - increase flow
             flow += deltaFlow;
         } else {

@@ -13,23 +13,17 @@ public class FordFulkerson {
      * Computes max flow from source s to sink t in the given network
      */
     public FordFulkerson(FlowNetwork network, Vertex s, Vertex t) {
-        valueMaxFlow = 0.0;
-        // Repeat until no augmenting path
         while (hasAugmentingPath(network, s, t)) {
             // find bottleneck capacity
             double bottle = Double.POSITIVE_INFINITY;
-            for (Vertex v = t; !v.equals(s); ) {
-                Edge e = edgeTo[v.getId()];
-                bottle = Math.min(bottle, e.getResidualCapacity(v));
-                v = e.getOtherVertex(v);
+            for (Vertex v = t; v != s ; v  = edgeTo[v.getId()].getOtherVertex(v)) {
+                bottle = Math.min(bottle, edgeTo[v.getId()].getResidualCapacity(v));
             }
             // augment flow along path
-            for (Vertex v = t; !v.equals(s); ) {
-                Edge e = edgeTo[v.getId()];
-                e.addResidualFlowTo(v, bottle);
-                v = e.getOtherVertex(v);
+            for (Vertex v = t; v != s; v = edgeTo[v.getId()].getOtherVertex(v)) {
+                edgeTo[v.getId()].addResidualFlowTo(v, bottle);
             }
-            valueMaxFlow += bottle;
+            valueMaxFlow = valueMaxFlow + bottle;
         }
     }
 
@@ -37,15 +31,14 @@ public class FordFulkerson {
      * BFS to find augmenting path in residual network
      */
     private boolean hasAugmentingPath(FlowNetwork network, Vertex s, Vertex t) {
-        int V = network.getNumberOfVertices();
-        marked = new boolean[V];
-        edgeTo = new Edge[V];
+        marked = new boolean[network.getNumberOfVertices()];
+        edgeTo = new Edge[network.getNumberOfVertices()];
         Queue<Vertex> queue = new LinkedList<>();
 
         marked[s.getId()] = true;
         queue.add(s);
 
-        while (!queue.isEmpty()) {
+        while (!queue.isEmpty() && !marked[t.getId()]) {
             Vertex v = queue.poll();
             for (Edge e : network.getAdjacenciesList(v)) {
                 Vertex w = e.getOtherVertex(v);

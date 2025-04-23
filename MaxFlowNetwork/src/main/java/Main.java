@@ -86,7 +86,7 @@ public class Main {
         System.out.print("Enter file path (default 'input/sample1.txt'): ");
         String path = scanner.nextLine().trim();
         if (path.isEmpty()) {
-            path = "E:\\1 work\\2nd yr\\ALGO\\CW\\bench\\benchmarks\\bridge_3.txt";
+            path = "E:\\1 work\\2nd yr\\ALGO\\CW\\bench\\test.txt";
         }
         try {
             FlowNetwork network = NetworkParser.parseFromFile(path);
