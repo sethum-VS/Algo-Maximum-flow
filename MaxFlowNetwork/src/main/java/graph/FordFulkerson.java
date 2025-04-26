@@ -2,6 +2,7 @@ package graph;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import util.GraphUtils;
 
 public class FordFulkerson {
     // Attributes for computing max flow
@@ -11,11 +12,13 @@ public class FordFulkerson {
 
     /**
      * Computes max flow from source s to sink t in the given network
-     */
-    public FordFulkerson(FlowNetwork network, Vertex s, Vertex t) {
+     */    public FordFulkerson(FlowNetwork network, Vertex s, Vertex t) {
         valueMaxFlow = 0.0;
         // Repeat until no augmenting path
         while (hasAugmentingPath(network, s, t)) {
+            // Log the augmenting path found
+            GraphUtils.logAugmentingPath(edgeTo, s, t);
+            
             // find bottleneck capacity
             double bottle = Double.POSITIVE_INFINITY;
             for (Vertex v = t; !v.equals(s); ) {
@@ -23,6 +26,7 @@ public class FordFulkerson {
                 bottle = Math.min(bottle, e.getResidualCapacity(v));
                 v = e.getOtherVertex(v);
             }
+            
             // augment flow along path
             for (Vertex v = t; !v.equals(s); ) {
                 Edge e = edgeTo[v.getId()];
@@ -31,6 +35,9 @@ public class FordFulkerson {
             }
             valueMaxFlow += bottle;
         }
+        
+        // Log the final max flow
+        GraphUtils.logMaxFlow(valueMaxFlow);
     }
 
     /**
