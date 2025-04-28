@@ -46,22 +46,6 @@ MaxFlowNetwork/
 - Finding minimum cut in the network
 - Detailed logging of augmenting paths
 
-## How to Run
-
-### Prerequisites
-- Java 17 or higher
-- Maven (for building)
-
-### Build
-```bash
-mvn clean package
-```
-
-### Run
-```bash
-java -jar target/MaxFlowNetwork-1.0-SNAPSHOT.jar
-```
-
 ## Usage
 
 1. **Manual Graph Input**:
@@ -95,10 +79,3 @@ Maximum flow from vertex 0 to 5: 23.0
 Min-cut source side vertices: 0 1 2 
 ```
 
-## License
-
-[Your License Information]
-
-## Contributors
-
-[Your Name/Team Information]
