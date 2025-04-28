@@ -83,10 +83,10 @@ public class Main {
      * Loads a graph from a file using NetworkParser and computes max flow.
      */
     private static void loadBenchmarkGraph(Scanner scanner) {
-        System.out.print("Enter file path (default 'input/sample1.txt'): ");
+        System.out.print("Enter file path or press enter to run default path (default 'benchmarks/bridge_1.txt): ");
         String path = scanner.nextLine().trim();
         if (path.isEmpty()) {
-            path = "E:\\1 work\\2nd yr\\ALGO\\CW\\bench\\benchmarks\\ladder_5.txt";
+            path = "E:\\1 work\\2nd yr\\ALGO\\CW\\bench\\benchmarks\\bridge_1.txt";
         }
         try {
             FlowNetwork network = NetworkParser.parseFromFile(path);
